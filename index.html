@@ -7,130 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
-<style>
-  :root{
-    --bg:#FFFFFF; --ink:#141414; --ink-2:#4A4A4A; --ink-3:#8A8A8A;
-    --rule:#E6E6E6; --accent:#1857C8; --accent-soft:#EEF3FC; --chip:#F4F4F4;
-  }
-  @media (prefers-color-scheme: dark){
-    :root:not([data-theme="light"]){
-      --bg:#121212; --ink:#F1F1F1; --ink-2:#BDBDBD; --ink-3:#7E7E7E;
-      --rule:#2A2A2A; --accent:#7FA6F0; --accent-soft:#1B2436; --chip:#1E1E1E;
-    }
-  }
-  :root[data-theme="dark"]{
-    --bg:#121212; --ink:#F1F1F1; --ink-2:#BDBDBD; --ink-3:#7E7E7E;
-    --rule:#2A2A2A; --accent:#7FA6F0; --accent-soft:#1B2436; --chip:#1E1E1E;
-  }
-  *{box-sizing:border-box}
-  html{scroll-behavior:smooth}
-  @media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto} }
-  body{
-    margin:0; background:var(--bg); color:var(--ink);
-    font-family:"Instrument Sans", "Helvetica Neue", Arial, sans-serif;
-    font-size:17px; line-height:1.55; -webkit-font-smoothing:antialiased;
-  }
-  a{color:var(--accent); text-decoration:none; border-bottom:1px solid transparent}
-  a:hover{border-bottom-color:currentColor}
-  a:focus-visible, button:focus-visible{outline:2px solid var(--accent); outline-offset:3px; border-radius:2px}
-  .wrap{max-width:1040px; margin:0 auto; padding:0 24px}
-
-  header.top{display:flex; justify-content:space-between; align-items:center; padding:28px 0; font-size:15px}
-  header.top nav a{color:var(--ink-2); margin-left:22px}
-  header.top nav a:hover{color:var(--ink)}
-  .brand{font-weight:600; color:var(--ink)}
-
-  .hero{padding:72px 0 88px; border-bottom:1px solid var(--rule)}
-  .hero h1{
-    font-size:clamp(40px, 7vw, 84px); line-height:1; letter-spacing:-0.035em;
-    font-weight:600; margin:0 0 28px; max-width:16ch;
-  }
-  .hero h1 span{display:block; color:var(--ink-3); font-weight:400}
-  .hero p{max-width:60ch; font-size:19px; color:var(--ink-2); margin:0 0 32px}
-  .hero .links{display:flex; gap:20px; flex-wrap:wrap; font-size:16px}
-  .hero .links a{color:var(--ink); border-bottom:1px solid var(--rule)}
-  .hero .links a:hover{border-bottom-color:var(--ink)}
-
-  section{padding:64px 0; border-bottom:1px solid var(--rule)}
-  section:last-of-type{border-bottom:0}
-  .grid{display:grid; grid-template-columns:200px 1fr; gap:40px}
-  .grid > h2{
-    font-size:15px; font-weight:500; color:var(--ink-3); margin:6px 0 0;
-    position:sticky; top:24px; align-self:start;
-  }
-  @media (max-width:760px){
-    .grid{grid-template-columns:1fr; gap:20px}
-    .grid > h2{position:static}
-  }
-  .prose p{margin:0 0 18px; max-width:68ch; color:var(--ink-2)}
-  .prose p:last-child{margin-bottom:0}
-
-  /* projets */
-  .group{margin-bottom:44px}
-  .group:last-child{margin-bottom:0}
-  .group > h3{font-size:14px; font-weight:500; color:var(--ink-3); margin:0 0 14px}
-  .proj{display:grid; grid-template-columns:1fr; gap:6px; padding:22px 0; border-top:1px solid var(--rule)}
-  .proj:last-child{border-bottom:1px solid var(--rule)}
-  .proj .head{display:flex; justify-content:space-between; align-items:baseline; gap:16px; flex-wrap:wrap}
-  .proj h4{font-size:22px; font-weight:600; margin:0; letter-spacing:-0.01em}
-  .proj .stack{font-size:14px; color:var(--ink-3)}
-  .proj p{margin:4px 0 0; color:var(--ink-2); max-width:72ch}
-  .proj .actions{margin-top:8px}
-  .proj ul{margin:8px 0 0; padding-left:18px; color:var(--ink-2); max-width:72ch}
-  .proj li{margin:3px 0}
-  .proj .link{font-size:15px; margin-top:8px}
-  .shots{display:none}
-  .peek{position:relative; display:inline-block}
-  .proj .actions{display:flex; flex-wrap:wrap; gap:6px 22px; align-items:baseline}
-  .proj .actions .link{margin-top:0}
-  .peek > a{cursor:pointer}
-  .peek-pop{
-    position:absolute; left:0; top:calc(100% + 10px); z-index:20; width:min(560px, 86vw);
-    max-width:calc(100vw - 48px);
-    background:var(--bg); border:1px solid var(--rule); border-radius:8px; padding:10px;
-    box-shadow:0 12px 40px rgba(0,0,0,.14); opacity:0; visibility:hidden; transform:translateY(6px);
-    transition:opacity .18s ease, transform .18s ease, visibility 0s linear .18s; pointer-events:none;
-  }
-  .peek.open .peek-pop{opacity:1; visibility:visible; transform:none; transition-delay:0s; pointer-events:auto}
-  .peek-pop img{width:100%; max-width:100%; height:auto; display:block; border-radius:4px; border:1px solid var(--rule)}
-  .peek-pop .stage{position:relative; overflow:hidden; border-radius:4px}
-  .peek-pop .stage img{position:absolute; inset:0; opacity:0; transition:opacity .35s ease; height:100%; object-fit:contain; background:var(--chip)}
-  .peek-pop .stage img:first-child{position:relative; height:auto}
-  .peek-pop .stage img.on{opacity:1}
-  .peek-pop .cap{display:flex; justify-content:space-between; align-items:center; margin-top:8px; font-size:13px; color:var(--ink-3)}
-  .peek-pop .dots{display:flex; gap:6px}
-  .peek-pop .dots i{width:7px; height:7px; border-radius:50%; background:var(--rule); display:block; transition:background .2s}
-  .peek-pop .dots i.on{background:var(--accent)}
-  @media (prefers-reduced-motion: reduce){ .peek-pop, .peek-pop .stage img, .peek-pop .dots i{transition:none} }
-
-  /* expériences & formation */
-  .row{display:grid; grid-template-columns:130px 1fr; gap:24px; padding:18px 0; border-top:1px solid var(--rule)}
-  .row:last-child{border-bottom:1px solid var(--rule)}
-  .row .when{color:var(--ink-3); font-size:15px; padding-top:3px}
-  .row h4{margin:0; font-size:18px; font-weight:600}
-  .row .where{color:var(--ink-3); font-size:15px}
-  .row p{margin:8px 0 0; color:var(--ink-2); max-width:68ch}
-  .row ul{margin:8px 0 0; padding-left:18px; color:var(--ink-2); max-width:68ch}
-  @media (max-width:560px){ .row{grid-template-columns:1fr; gap:4px} }
-
-  /* compétences */
-  .skills{display:grid; grid-template-columns:repeat(auto-fill, minmax(230px,1fr)); gap:28px 32px}
-  .skills h4{margin:0 0 10px; font-size:16px; font-weight:600}
-  .chips{display:flex; flex-wrap:wrap; gap:8px}
-  .chip{background:var(--chip); color:var(--ink-2); font-size:14px; padding:5px 10px; border-radius:999px}
-  .chip.hi{background:var(--accent-soft); color:var(--accent)}
-
-  .two{display:grid; grid-template-columns:1fr 1fr; gap:32px}
-  @media (max-width:560px){ .two{grid-template-columns:1fr} }
-  .two h4{margin:0 0 10px; font-size:16px; font-weight:600}
-  .two ul{margin:0; padding-left:18px; color:var(--ink-2)}
-
-  .contact p{font-size:24px; max-width:32ch; margin:0 0 20px; letter-spacing:-0.01em}
-  .contact .links a{display:inline-block; margin-right:24px; font-size:17px; color:var(--ink); border-bottom:1px solid var(--rule)}
-  .contact .links a:hover{border-bottom-color:var(--ink)}
-
-  footer{padding:32px 0 48px; color:var(--ink-3); font-size:14px; display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px}
-</style>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
 <div class="wrap">
@@ -175,23 +52,23 @@
         <h3>Systèmes, compilation et parallélisme</h3>
 
         <div class="proj">
-          <div class="head"><h4>Tigros</h4><span class="stack">C++ · compilation</span></div>
+          <div class="head"><h4>Tigros</h4><span class="meta"><span class="tag group">Projet de groupe</span><span class="stack">C++ · compilation</span></span></div>
           <p>Compilateur traduisant le langage Tigros vers du code C : analyse lexicale et syntaxique, construction d'AST, validation sémantique.</p>
         </div>
 
         <div class="proj">
-          <div class="head"><h4>PRPA</h4><span class="stack">C++ · SIMD · multithreading</span></div>
+          <div class="head"><h4>PRPA</h4><span class="meta"><span class="tag group">Projet de groupe</span><span class="stack">C++ · SIMD · multithreading</span></span></div>
           <p>Traitement d'image en temps réel vectorisé et multithreadé, et conception d'une structure de données concurrente respectant une consistance séquentielle stricte.</p>
           <div class="link"><a href="https://github.com/DarKexxFR/PRPA" target="_blank" rel="noopener">Voir le code</a></div>
         </div>
 
         <div class="proj">
-          <div class="head"><h4>42sh</h4><span class="stack">C · POSIX · GitLab CI/CD</span></div>
+          <div class="head"><h4>42sh</h4><span class="meta"><span class="tag group">Projet de groupe</span><span class="stack">C · POSIX · GitLab CI/CD</span></span></div>
           <p>Interpréteur de commandes POSIX co-développé en équipe : processus, signaux, gestion mémoire vérifiée sous Valgrind. Pipelines CI stricts et suite de tests exhaustive pour qualifier chaque commit.</p>
         </div>
 
         <div class="proj">
-          <div class="head"><h4>Outils et exercices bas niveau</h4><span class="stack">C · assembleur x86-64 · Go · Java</span></div>
+          <div class="head"><h4>Outils et exercices bas niveau</h4><span class="meta"><span class="tag solo">Projet solo</span><span class="stack">C · assembleur x86-64 · Go · Java</span></span></div>
           <ul>
             <li>Fonctions en assembleur AT&amp;T x86-64 écrites au plus près de la machine</li>
             <li>Un <code>tail</code> sur stdin avec lecture bufferisée en tampon circulaire</li>
@@ -205,12 +82,12 @@
         <h3>Algorithmique et recherche opérationnelle</h3>
 
         <div class="proj">
-          <div class="head"><h4>Optimisation hivernale — déneigement de Montréal</h4><span class="stack">Python · graphes</span></div>
+          <div class="head"><h4>Optimisation hivernale — déneigement de Montréal</h4><span class="meta"><span class="tag group">Projet de groupe</span><span class="stack">Python · graphes</span></span></div>
           <p>Modélisation des tournées de déneigement des arrondissements de Montréal comme un problème du postier chinois orienté (DCPP / DRPP), avec planification de flotte et modèle de coûts.</p>
         </div>
 
         <div class="proj">
-          <div class="head"><h4>Automates, jeux et apprentissage actif</h4><span class="stack">LTL · ω-automates · LaTeX/TikZ</span></div>
+          <div class="head"><h4>Automates, jeux et apprentissage actif</h4><span class="meta"><span class="tag solo">Projet solo</span><span class="stack">LTL · ω-automates · LaTeX/TikZ</span></span></div>
           <p>Travail sur l'algorithme L*, les automates de Büchi et de Muller et l'analyse combinatoire d'un jeu, rendu sous forme de document LaTeX/TikZ.</p>
         </div>
       </div>
@@ -219,7 +96,7 @@
         <h3>Web et full-stack</h3>
 
         <div class="proj">
-          <div class="head"><h4>Vexto</h4><span class="stack">TypeScript · React Native · Mapbox · Postgres 17 / PostGIS · Supabase</span></div>
+          <div class="head"><h4>Vexto</h4><span class="meta"><span class="tag solo">Projet solo</span><span class="stack">TypeScript · React Native · Mapbox · Postgres 17 / PostGIS · Supabase</span></span></div>
           <p>Application de mobilité bas-carbone développée de bout en bout : recherche d'itinéraire sur carte Mapbox, comparaison des modes de transport (voiture, transports en commun, vélo, trottinette, marche) avec durée, CO₂ émis et points gagnés, suivi GPS en temps réel et validation anti-triche des trajets via PostGIS. Gamification à double monnaie (score de classement et crédits échangeables contre des récompenses partenaires), classement entre amis, profil et groupes de trajet. Back-end Postgres 17 via Supabase, typage strict, intégration d'API tierces. Pitch deck complet.</p>
           <div class="actions">
           <div class="link"><a href="https://github.com/DarKexxFR/Vexto" target="_blank" rel="noopener">Voir le code</a></div>
@@ -242,7 +119,7 @@
         </div>
 
         <div class="proj">
-          <div class="head"><h4>Automatisations et IA</h4><span class="stack">Python · API LLM</span></div>
+          <div class="head"><h4>Automatisations et IA</h4><span class="meta"><span class="tag solo">Projet solo</span><span class="stack">Python · API LLM</span></span></div>
           <p>Scripts d'automatisation de workflows, d'extraction et de structuration de données. Usage avancé d'API de modèles de langage pour accélérer le développement et l'analyse d'architecture.</p>
         </div>
       </div>
@@ -251,7 +128,7 @@
         <h3>Jeux et outils</h3>
 
         <div class="proj">
-          <div class="head"><h4>Survivor / Neon Edition</h4><span class="stack">JavaScript · navigateur</span></div>
+          <div class="head"><h4>Survivor / Neon Edition</h4><span class="meta"><span class="tag solo">Projet solo</span><span class="stack">JavaScript · navigateur</span></span></div>
           <p>Roguelite de type survivor jouable dans le navigateur, ambiance néon : vagues d'ennemis, stats de personnage (attaque, défense, vitesse, critique), dash et ultime, boîtes mystère, progression de compte persistante avec XP et or, armurerie pour acheter des drones, classement top 10 et équilibrage itéré sur de nombreuses sessions.</p>
           <div class="actions">
           <div class="link"><a href="https://github.com/DarKexxFR/2D-Game" target="_blank" rel="noopener">Voir le code</a></div>
@@ -273,7 +150,7 @@
         </div>
 
         <div class="proj">
-          <div class="head"><h4>Siege of Aldoria</h4><span class="stack">tower defense</span></div>
+          <div class="head"><h4>Siege of Aldoria</h4><span class="meta"><span class="tag solo">Projet solo</span><span class="stack">tower defense</span></span></div>
           <p>Tower defense complet avec campagne de six niveaux à difficulté progressive, cinq types de tours (archer, druide, mage, canon, caserne) aux rôles distincts, améliorations, revente et capacités spéciales, gestion de l'or et des vagues, vitesse de jeu et raccourcis clavier.</p>
           <div class="actions">
           <div class="link"><a href="https://github.com/DarKexxFR/Siege-of-Aldoria-Tower-Defense" target="_blank" rel="noopener">Voir le code</a></div>
@@ -293,7 +170,7 @@
         </div>
 
         <div class="proj">
-          <div class="head"><h4>Dynamic Morpion</h4><span class="stack">Python · Tkinter</span></div>
+          <div class="head"><h4>Dynamic Morpion</h4><span class="meta"><span class="tag solo">Projet solo</span><span class="stack">Python · Tkinter</span></span></div>
           <p>Morpion avec interface graphique Tkinter : partie locale à deux ou contre un bot à deux niveaux (coups aléatoires, ou blocage des alignements du joueur), détection de victoire et relance de partie.</p>
           <div class="actions">
           <div class="link"><a href="https://github.com/DarKexxFR/Dynamic-Morpion" target="_blank" rel="noopener">Voir le code</a></div>
@@ -313,7 +190,7 @@
         </div>
 
         <div class="proj">
-          <div class="head"><h4>Game of Life</h4><span class="stack">automate cellulaire</span></div>
+          <div class="head"><h4>Game of Life</h4><span class="meta"><span class="tag solo">Projet solo</span><span class="stack">automate cellulaire</span></span></div>
           <p>Implémentation du jeu de la vie de Conway avec simulation interactive.</p>
           <div class="link"><a href="https://github.com/DarKexxFR/game-of-life" target="_blank" rel="noopener">Voir le code</a></div>
         </div>
@@ -442,41 +319,6 @@
 </footer>
 
 </div>
-<script>
-(function(){
-  document.querySelectorAll('.peek').forEach(function(peek){
-    var shots = peek.closest('.proj').querySelector('.shots');
-    if(!shots) return;
-    var srcs = Array.from(shots.querySelectorAll('img'));
-    var stage = peek.querySelector('.stage'), dots = peek.querySelector('.dots'), label = peek.querySelector('.label');
-    srcs.forEach(function(img, i){
-      var c = img.cloneNode(); c.className = i===0 ? 'on' : ''; stage.appendChild(c);
-      var d = document.createElement('i'); if(i===0) d.className='on'; dots.appendChild(d);
-    });
-    var imgs = Array.from(stage.children), ds = Array.from(dots.children), idx = 0, timer = null, pinned = false;
-    function show(i){
-      idx = (i + imgs.length) % imgs.length;
-      imgs.forEach(function(el,k){ el.classList.toggle('on', k===idx); });
-      ds.forEach(function(el,k){ el.classList.toggle('on', k===idx); });
-      label.textContent = imgs[idx].alt + ' — ' + (idx+1) + '/' + imgs.length;
-    }
-    function open(){ peek.classList.add('open'); show(idx); clearInterval(timer); timer = setInterval(function(){ show(idx+1); }, 1800); }
-    function close(){ if(pinned) return; peek.classList.remove('open'); clearInterval(timer); }
-    peek.addEventListener('mouseenter', open);
-    peek.addEventListener('mouseleave', close);
-    stage.addEventListener('mousemove', function(e){
-      var r = stage.getBoundingClientRect(), i = Math.floor((e.clientX - r.left) / r.width * imgs.length);
-      if(i !== idx){ show(i); clearInterval(timer); timer = setInterval(function(){ show(idx+1); }, 1800); }
-    });
-    peek.querySelector('a').addEventListener('click', function(e){
-      e.preventDefault(); pinned = !pinned;
-      if(pinned) open(); else { peek.classList.remove('open'); clearInterval(timer); }
-    });
-    document.addEventListener('keydown', function(e){ if(e.key==='Escape'){ pinned=false; close(); } });
-    document.addEventListener('click', function(e){ if(pinned && !peek.contains(e.target)){ pinned=false; close(); } });
-    show(0);
-  });
-})();
-</script>
+<script src="script.js"></script>
 </body>
 </html>
